@@ -1,0 +1,32 @@
+name: linux_g++_x86_64
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build
+      run: g++ -ggdb3 -pedantic -Wall -Wextra -rdynamic -funwind-tables -fno-omit-frame-pointer -fno-common -pthread -fsanitize=address,leak,undefined,pointer-compare,pointer-subtract,float-divide-by-zero,float-cast-overflow -fsanitize-address-use-after-scope -fcf-protection=full -fstack-protector-all -fstack-clash-protection -fvtv-debug -fvtv-counts -finstrument-functions -D_GLIBC_DEBUG -D_GLIBC_DEBUG_PEDANTIC -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -o prog nrvo_test.cpp -std=c++17 > build_log.txt 2>&1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build_log.txt
+        path: build_log.txt
+    - name: Check binary file
+      run: ls -alh prog; file prog
+    - name: Run executable prog and collect output
+      run: ./prog > output.txt 2>&1
+      continue-on-error: true
+    - uses: actions/upload-artifact@v2
+      with:
+        name: output.txt
+        path: output.txt
+    - name: compare expected output
+      run: cmp output.txt expected_output.txt

@@ -1,0 +1,49 @@
+First line in main
+Args: 3 4 5 6 7 8 9 10 1 2 13 14 15 16 17 18 19 20 11 12
+construct 'FromGiveMeLockedMutex1' - 7 15
+lock 'FromGiveMeLockedMutex1' - 8 8
+unlock 'FromGiveMeLockedMutex1' - 9 0
+Args: 83 84 85 86 87 88 89 810 81 82 813 814 815 816 817 818 819 820 811 812
+construct 'FromGiveMeLockedMutex2' - 7 15
+lock 'FromGiveMeLockedMutex2' - 8 8
+Args: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+construct 'FromGiveMeMutex3' - 3 3
+lock 'FromGiveMeMutex3' - 4 -4
+unlock 'FromGiveMeMutex3' - 5 -12
+destroy 'FromGiveMeMutex3' - 6 -21
+Args: 71 72 73 74 75 76 77 78 79 710 711 712 713 714 715 716 717 718 719 720
+construct 'FromGiveMeMutex4' - 3 3
+lock 'FromGiveMeMutex4' - 4 -4
+unlock 'FromGiveMeMutex4' - 5 -12
+destroy 'FromGiveMeMutex4' - 6 -21
+Args: 35 36 37 38 39 310 31 32 33 34 316 317 318 319 320 311 312 313 314 315
+construct 'FromGiveMeMutex5' - 3 3
+lock 'FromGiveMeMutex5' - 4 -4
+unlock 'FromGiveMeMutex5' - 5 -12
+destroy 'FromGiveMeMutex5' - 6 -21
+Args: 95 96 97 98 99 910 91 92 93 94 916 917 918 919 920 911 912 913 914 915
+construct 'FromGiveMeMutex6' - 3 3
+lock 'FromGiveMeMutex6' - 4 -4
+unlock 'FromGiveMeMutex6' - 5 -12
+Args: 29 210 21 2 3 4 5 6 7 8 19 20 11 12 13 14 15 16 17 18
+construct 'FromGiveMeLockedMutex7' - 7 15
+lock 'FromGiveMeLockedMutex7' - 8 8
+lock 'FromGiveMeLockedMutex7' - 9 1
+unlock 'FromGiveMeLockedMutex7' - 10 -7
+destroy 'FromGiveMeLockedMutex7' - 11 -16
+destroy 'FromGiveMeMutex6' - 6 -21
+Args: 9 10 1 2 3 4 5 6 7 8 19 20 11 12 13 14 15 16 17 18
+construct 'FromGiveMeLockedMutex8' - 7 15
+lock 'FromGiveMeLockedMutex8' - 8 8
+destroy 'FromGiveMeLockedMutex8' - 9 -1
+Args: 54321 1 2 3 4 5 6 7 8 9 13 14 15 16 17 18 19 20 21 22
+construct 'FromGiveMeLockedMutex8' - 8 18 - OBJECT NOT CONSTRUCTED
+Caught an int
+Args: 12345 1 2 3 4 5 6 7 8 9 13 14 15 16 17 18 19 20 21 22
+construct 'FromGiveMeLockedMutex9' - 7 15
+lock 'FromGiveMeLockedMutex9' - 8 8
+destroy 'FromGiveMeLockedMutex9' - 9 -1
+Caught an int
+Last line in main
+destroy 'FromGiveMeLockedMutex2' - 9 -1
+destroy 'FromGiveMeLockedMutex1' - 10 -9

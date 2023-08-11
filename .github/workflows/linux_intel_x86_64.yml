@@ -1,0 +1,38 @@
+name: linux_intel_x86_64
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up apt-get to access Intel repo
+      run: |
+        wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null; \
+        echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list; \
+        sudo apt update
+    - name: Install the Intel Classic C++ compiler
+      run: |
+        sudo apt install -y intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic-2022.1.0
+    - name: Prepare to use the Intel compiler
+      run: source /opt/intel/oneapi/setvars.sh; printenv >> $GITHUB_ENV
+    - name: Compiler pre-compiler
+      run: icpc -o prog nrvo_test.cpp -std=c++17 > build_log.txt 2>&1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build_log.txt
+        path: build_log.txt
+    - name: Check binary file
+      run: ls -alh prog; file prog; readelf -a prog | grep NEEDED; ldd prog
+    - name: Run executable prog and collect output
+      run: ./prog > output.txt 2>&1
+      continue-on-error: true
+    - name: compare expected output
+      run: cmp output.txt expected_output.txt

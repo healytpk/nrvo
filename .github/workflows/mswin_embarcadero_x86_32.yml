@@ -1,0 +1,39 @@
+name: mswin_embarcadero_x86_32
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+    name: run on windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Embarcadero compiler
+      run: mkdir "C:\Program Files\Embarcadero\RAD_Studio_11" && xcopy /s /e compilers\embarcadero "C:\Program Files\Embarcadero\RAD_Studio_11\" && dir "C:\Program Files\Embarcadero\RAD_Studio_11\"
+      shell: cmd
+    - name: show the contents of the bin directory
+      run: dir "C:\Program Files\Embarcadero\RAD_Studio_11\bin"
+      shell: cmd
+    - name: build
+      run: C:\Progra~1\Embarcadero\RAD_Studio_11\bin\bcc32c.exe -o prog.exe nrvo_test.cpp -std=c++17
+      shell: cmd
+    - name: upload executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: prog.exe
+        path: prog.exe
+    - name: Run executable prog and collect output
+      run: prog.exe > output.txt
+      shell: cmd
+    - name: upload output.txt
+      uses: actions/upload-artifact@v2
+      with:
+        name: output.txt
+        path: output.txt
+    - name: compare expected output
+      run:  compilers\dos2unix.exe output.txt && fc output.txt expected_output.txt
+      shell: cmd

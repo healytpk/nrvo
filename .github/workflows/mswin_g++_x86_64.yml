@@ -1,0 +1,39 @@
+name: mswin_g++_x86_64
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+    name: run on windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+    - name: build
+      run: c++ -o prog.exe nrvo_test.cpp -std=c++17 > build_log.txt
+      shell: cmd
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build_log.txt
+        path: build_log.txt
+    - name: Check binary file
+      run: dir prog.exe
+      shell: cmd
+    - name: Run executable prog and collect output
+      run: prog.exe > output.txt
+      shell: cmd
+      continue-on-error: true
+    - uses: actions/upload-artifact@v2
+      with:
+        name: output.txt
+        path: output.txt
+    - name: compare expected output
+      run:  compilers\dos2unix.exe output.txt && fc output.txt expected_output.txt
+      shell: cmd

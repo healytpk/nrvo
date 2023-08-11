@@ -1,0 +1,33 @@
+name: linux_g++_sh4
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Install cross-compiler, as well as Qemu CPU emulator
+      run: sudo apt update; sudo apt install -y g++-sh4-linux-gnu qemu-user-static
+    - uses: actions/checkout@v2
+    - name: build
+      run: sh4-linux-gnu-g++ -o prog nrvo_test.cpp -O0 -Wl,-rpath,lib/sh4/ -Wl,--dynamic-linker,lib/sh4/ld-linux.so.2 -static-libstdc++ -static-libgcc > build_log.txt 2>&1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build_log.txt
+        path: build_log.txt
+    - name: Check binary file
+      run: ls -alh prog; file prog
+    - name: Run executable prog and collect output
+      run: ./prog > output.txt 2>&1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: output.txt
+        path: output.txt
+    - name: compare expected output
+      run: cmp output.txt expected_output.txt

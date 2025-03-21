@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install 32-Bit libraries for compiler to make x86_32 executables
       run: sudo apt update; sudo apt install -y g++-multilib
     - name: build

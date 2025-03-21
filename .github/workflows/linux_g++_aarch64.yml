@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Install cross-compiler, as well as Qemu CPU emulator
       run: sudo apt update; sudo apt install -y g++-aarch64-linux-gnu qemu-user-static
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: build
       run: aarch64-linux-gnu-g++ -o prog nrvo_test.cpp -std=c++17 -static-libgcc -static-libstdc++ -Wl,-rpath,lib/aarch64/ > build_log.txt 2>&1
     - uses: actions/upload-artifact@v2

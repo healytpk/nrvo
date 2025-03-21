@@ -11,7 +11,7 @@ jobs:
     name: run on windows
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install Embarcadero compiler
       run: mkdir "C:\Program Files\Embarcadero\RAD_Studio_11" && xcopy /s /e compilers\embarcadero "C:\Program Files\Embarcadero\RAD_Studio_11\" && dir "C:\Program Files\Embarcadero\RAD_Studio_11\"
       shell: cmd

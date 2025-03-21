@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: build
       run: g++ -ggdb3 -pedantic -Wall -Wextra -rdynamic -funwind-tables -fno-omit-frame-pointer -fno-common -pthread -fsanitize=address,leak,undefined,pointer-compare,pointer-subtract,float-divide-by-zero,float-cast-overflow -fsanitize-address-use-after-scope -fcf-protection=full -fstack-protector-all -fstack-clash-protection -fvtv-debug -fvtv-counts -finstrument-functions -D_GLIBC_DEBUG -D_GLIBC_DEBUG_PEDANTIC -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -o prog nrvo_test.cpp -std=c++17 > build_log.txt 2>&1
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: build_log.txt
         path: build_log.txt
@@ -24,7 +24,7 @@ jobs:
     - name: Run executable prog and collect output
       run: ./prog > output.txt 2>&1
       continue-on-error: true
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: output.txt
         path: output.txt

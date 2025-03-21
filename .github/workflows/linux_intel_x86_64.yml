@@ -25,7 +25,7 @@ jobs:
       run: source /opt/intel/oneapi/setvars.sh; printenv >> $GITHUB_ENV
     - name: Compiler pre-compiler
       run: icpc -o prog nrvo_test.cpp -std=c++17 > build_log.txt 2>&1
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: build_log.txt
         path: build_log.txt

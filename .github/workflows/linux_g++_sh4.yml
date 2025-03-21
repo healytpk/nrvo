@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: build
       run: sh4-linux-gnu-g++ -o prog nrvo_test.cpp -O0 -Wl,-rpath,lib/sh4/ -Wl,--dynamic-linker,lib/sh4/ld-linux.so.2 -static-libstdc++ -static-libgcc > build_log.txt 2>&1
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: build_log.txt
         path: build_log.txt
@@ -25,7 +25,7 @@ jobs:
       run: ls -alh prog; file prog
     - name: Run executable prog and collect output
       run: ./prog > output.txt 2>&1
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: output.txt
         path: output.txt

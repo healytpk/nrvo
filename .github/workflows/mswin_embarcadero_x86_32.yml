@@ -22,7 +22,7 @@ jobs:
       run: C:\Progra~1\Embarcadero\RAD_Studio_11\bin\bcc32c.exe -o prog.exe nrvo_test.cpp -std=c++17
       shell: cmd
     - name: upload executable
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: prog.exe
         path: prog.exe
@@ -30,7 +30,7 @@ jobs:
       run: prog.exe > output.txt
       shell: cmd
     - name: upload output.txt
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: output.txt
         path: output.txt

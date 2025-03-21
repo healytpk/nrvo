@@ -22,7 +22,7 @@ jobs:
     - name: build
       run: /usr/bin/sparc64-linux-gnu-g++-13 -o prog nrvo_test.cpp -std=c++17 -static > build_log.txt 2>&1
       continue-on-error: true
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: build_log.txt
         path: build_log.txt
@@ -30,7 +30,7 @@ jobs:
       run: ls -alh prog; file prog
     - name: Run executable prog and collect output
       run: qemu-sparc64-static ./prog > output.txt 2>&1
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: output.txt
         path: output.txt
